@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Abstract
 {
-    //InMemory formatta GetById, GetAll, Add, Update, Delete
-    public interface ICarDal :IEntityRepository<Car>
+    public interface IBrandDal:IEntityRepository<Brand>
     {
-        
 
     }
 }
