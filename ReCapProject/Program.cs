@@ -9,12 +9,8 @@ namespace ReCapProject
     {
         static void Main(string[] args)
         {
-            CarManager carManager = new CarManager(new EFCarDal());
-
-            foreach (var car in carManager.GetAll())
-            {
-                Console.WriteLine(car.Id);
-            }
+            //CarManager carManager = CarTest();
+            //BrandTest();
 
             //foreach (var car in carManager.GetAll())
             //{
@@ -25,19 +21,40 @@ namespace ReCapProject
             //    Console.WriteLine(car.CarName);
             //}
 
-            foreach (var car in carManager.GetCarsByBrandId(2))
-            {
+            //foreach (var car in carManager.GetCarsByBrandId(2))
+            //{
 
-                Console.WriteLine(car.CarName);
+            //    Console.WriteLine(car.CarName);
+            //}
+
+            //foreach (var car in carManager.GetCarsByColorId(1))
+            //{
+            //    Console.WriteLine(car.CarName);
+            //}
+
+           
+
+        }
+
+        private static void BrandTest()
+        {
+            BrandManager brandManager = new BrandManager(new EFBrandDal());
+            foreach (var brand in brandManager.GetAll())
+            {
+                Console.WriteLine(brand.BrandName);
+            }
+        }
+
+        private static CarManager CarTest()
+        {
+            CarManager carManager = new CarManager(new EFCarDal());
+
+            foreach (var car in carManager.GetCarDetalis())
+            {
+                Console.WriteLine(car.CarName+ "/" +car.BrandName);
             }
 
-            foreach (var car in carManager.GetCarsByColorId(1))
-            {
-                Console.WriteLine(car.CarName);
-            }
-
-
-
+            return carManager;
         }
     }
 }
