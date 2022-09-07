@@ -9,8 +9,8 @@ namespace ReCapProject
     {
         static void Main(string[] args)
         {
-            //CarManager carManager = CarTest();
-            //BrandTest();
+            CarManager carManager = CarTest();
+            BrandTest();
 
             //foreach (var car in carManager.GetAll())
             //{
@@ -49,9 +49,18 @@ namespace ReCapProject
         {
             CarManager carManager = new CarManager(new EFCarDal());
 
-            foreach (var car in carManager.GetCarDetalis())
+            var result = carManager.GetCarDetalis();
+
+            if (result.Success== true)
             {
-                Console.WriteLine(car.CarName+ "/" +car.BrandName);
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine(car.CarName + "/" + car.BrandName);
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
 
             return carManager;

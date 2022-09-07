@@ -65,7 +65,7 @@ namespace Core.DataAccess.EntityFramework
             }
         }
 
-        public void İnsert(TEntity entity)
+        public void Insert(TEntity entity)
         {
             using (TContext context= new TContext())
             {

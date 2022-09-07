@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Result;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -19,33 +21,68 @@ namespace Business.Concrete
             _carDal=carDal;
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
             //iş kodları
-            return _carDal.GetAll();
-        }
 
-        public List<Car> GetCarsByBrandId(int Id)
-        {
-            return _carDal.GetAll(c=>c.BrandId== Id);
-        }
-
-        public List<Car> GetCarsByColorId(int Id)
-        {
-            return _carDal.GetAll(c => c.ColorId == Id);
-        }
-
-        public void Add(Car car)
-        {
-            if (car.CarName is { Length: >= 2 } && car.DailyPrice > 0)
+            if (DateTime.Now.Hour==22)
             {
-                _carDal.Add(car);
+                return new ErorrDataResult<List<Car>>(Messages.MaintenanceTime);
             }
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarListed);// SuccesDataResult içindeki Car nesnesine bu mesajı gönder
         }
 
-        public List<CarDetailDto> GetCarDetalis()
+        public IDataResult<List<Car>> GetCarsByBrandId(int Id)
         {
-            return _carDal.GetCarDetails();
+            return new SuccessDataResult<List<Car>> (_carDal.GetAll(c => c.BrandId == Id));
         }
+
+        public IDataResult<List<Car>> GetCarsByColorId(int Id)
+        {
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == Id)) ;
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetalis()
+        {
+            if(DateTime.Now.Hour == 22)
+            {
+                return new ErorrDataResult<List<CarDetailDto>>(Messages.MaintenanceTime);
+            }
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+        }
+
+        public IDataResult<Car> GetById(int Id)
+        {
+            return new SuccessDataResult<Car>(_carDal.Get(c =>c.CarId == Id));
+        }
+
+        public IResult Add(Car car)
+        {
+            //business codes 
+
+            if (car.CarName.Length<2)
+            {
+                //magic strings
+                return new ErrorResult(Messages.CarNameInvalid);
+            }
+            _carDal.Add(car);
+
+            return new SuccessResult(Messages.CarAdded);
+        }
+
+        public IResult Update(Car car)
+        {
+            _carDal.Update(car);
+            return new SuccessResult(Messages.CarUpdated);
+        }
+
+        public IResult Delete(Car car)
+        {
+            _carDal.Delete(car);
+            return new SuccessResult(Messages.ColorDeleted);
+
+        }
+
+     
     }
 }
