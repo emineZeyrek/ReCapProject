@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Business.Abstract
 {
-    internal interface ICarService
+    public interface ICarService
     {
         IDataResult<List<Car>> GetAll(); // aynı zamanda işlem sonucu ve mesajı döndürür
 

@@ -35,6 +35,8 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CustomersDeleted);
         }
 
+       
+
         public IDataResult<List<Customers>> GetAll()
         {
             if (DateTime.Now.Hour == 22)

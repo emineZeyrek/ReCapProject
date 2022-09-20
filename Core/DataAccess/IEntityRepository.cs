@@ -11,7 +11,7 @@ namespace Core.DataAccess
     // T IEntity olabilir veya IEntity i implemnte eden bir nesne olabilir
     public interface IEntityRepository<T> where T:class,IEntity,new()//generic constraint
     {
-        List<T> GetAll(Expression<Func<T,bool>> filter=null);
+        List<T> GetAll(Expression<Func<T, bool>> filter = null);
 
 
         T Get(Expression<Func<T, bool>> filter); // filtre verilmemişse tüm data getirilir

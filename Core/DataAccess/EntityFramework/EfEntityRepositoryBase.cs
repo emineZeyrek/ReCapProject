@@ -53,7 +53,7 @@ namespace Core.DataAccess.EntityFramework
             }
         }
 
-        
+       
 
         public void Update(TEntity entity)
         {

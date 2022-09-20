@@ -39,10 +39,23 @@ namespace ReCapProject
         private static void BrandTest()
         {
             BrandManager brandManager = new BrandManager(new EFBrandDal());
-            foreach (var brand in brandManager.GetAll())
+
+            var result = brandManager.GetAll();
+
+            if (result.Success==true)
             {
-                Console.WriteLine(brand.BrandName);
+                foreach (var brand in result.Data)
+                {
+                    Console.WriteLine(brand.BrandName);
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
+           
+
         }
 
         private static CarManager CarTest()
